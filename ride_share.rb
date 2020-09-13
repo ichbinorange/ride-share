@@ -193,27 +193,27 @@ def is_tie?(ranking_data, request_info)
   if request_info == "cost"
     if ranking_data.count > 1
       puts "There are #{ ranking_data.count } drivers have the same most earnings!"
-      ranking_data.each { |driver, earning| puts "==> Driver \"#{ driver }\" has earned the most money $#{ earning }" }
+      result = ranking_data.map { |driver, earning| "==> Driver \"#{ driver }\" has earned the most money $#{ earning }" }
     else
-      ranking_data.each { |driver, earning| puts "==> Driver \"#{ driver }\" has earned the most money $#{ earning }" }
+      result = ranking_data.map { |driver, earning| "==> Driver \"#{ driver }\" has earned the most money $#{ earning }" }
     end
 
   elsif request_info == "rating"
     if ranking_data.count > 1
       puts "There are #{ ranking_data.count } drivers have the same highest ratings!"
-      ranking_data.each { |driver, rating| puts "==> Driver \"#{ driver }\" has the highest rating #{ rating }" }
+      result = ranking_data.map { |driver, rating| "==> Driver \"#{ driver }\" has the highest rating #{ rating }" }
     else
-      ranking_data.each { |driver, rating| puts "==> Driver \"#{ driver }\" has the highest rating #{ rating }" }
+      result = ranking_data.map { |driver, rating| "==> Driver \"#{ driver }\" has the highest rating #{ rating }" }
     end
   end
+  return result 
 end
 
-
 puts "\nWhich driver made the most money?"
-is_tie?(drivers_ranking(ride_share_raw_data[:drivers], "cost"), "cost")
+puts is_tie?(drivers_ranking(ride_share_raw_data[:drivers], "cost"), "cost")
 
 puts "\nWhich driver has the highest average rating?"
-is_tie?(drivers_ranking(ride_share_raw_data[:drivers], "rating"), "rating")
+puts is_tie?(drivers_ranking(ride_share_raw_data[:drivers], "rating"), "rating")
 
 # Optional
 puts "\nFor each driver, on which day did they make the most money?"
