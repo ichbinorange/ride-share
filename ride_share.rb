@@ -167,7 +167,7 @@ end
 puts "\nThe average rating for each driver:"
 ride_share_raw_data[:drivers].each do |driver, rides|
   total_rating = rides.sum { |ride_detail| ride_detail[:rating] }
-  puts "==> Driver \"#{ driver }\" has got the average rating for #{ (total_rating / rides.count).to_f }."
+  puts "==> Driver \"#{ driver }\" has got the average rating for #{ (total_rating / rides.count.to_f).round(1) }."
 end
 
 # Handle ranking questions, even with a tie
@@ -182,7 +182,7 @@ def drivers_ranking(data_for_riders, request_info)
   elsif request_info == "rating"
     ave_rating_ranking = Hash.new
     data_for_riders.each do |driver, rides|
-      ave_rating_ranking[driver] = (rides.sum { |info| info[:rating] } / rides.count).to_f
+      ave_rating_ranking[driver] = (rides.sum { |info| info[:rating] } / rides.count.to_f).round(1)
     end
     ranking_for_drivers = ave_rating_ranking.find_all { |driver, value| value == (ave_rating_ranking.max_by { |driver, rating| rating })[1] }
   end
